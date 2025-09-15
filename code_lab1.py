@@ -1,3 +1,5 @@
+#Hi, this is Peter...most of this lines of codes here were gotten from my Udemy class, The codes you see here are praticed and have been run by me, 
+#additional comments have been written by ed-donner(Co-founder of nebula) 
 # First let's do an import. If you get an Import Error, double check that your Kernel is correct..
 
 from dotenv import load_dotenv
@@ -82,6 +84,9 @@ from IPython.display import Markdown, display
 display(Markdown(answer))
 
 
+#Hi, this is Peter, Here is a simple classwork: First ask the LLM to pick a business area that might be worth exploring for an Agentic AI opportunity
+#Then ask the LLM to present a pain-point in that industry - something challenging that might be ripe for an Agentic solution.<br/>
+#Finally have 3 third LLM call propose the Agentic AI solution.
 
 # First create the messages:
 import openai
