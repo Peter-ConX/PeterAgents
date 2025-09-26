@@ -19,21 +19,4 @@ research_trending_companies:
   expected_output: >
     A well-organized report with detailed analysis of each company in the {sector} on the NGX.
   agent: financial_researcher
-  context:
-    - find_trending_companies
-  output_file: output/research_report.json
-
-pick_best_company:
-  description: >
-    Analyze the research findings and pick the single best company for investment from the {sector} on the NGX.
-    Provide:
-      1. The chosen company and a clear rationale for selection.
-      2. The companies not selected and why they were excluded.
-    Send a push notification to the user with the decision and a one-sentence rationale.
-  expected_output: >
-    A professional decision report naming the chosen company from the NGX, explaining the rationale,
-    and outlining why the other companies were not selected.
-  agent: stock_picker
-  context:
-    - research_trending_companies
-  output_file: output/decision.md
+#Hi, I deleted some sensitive files here
