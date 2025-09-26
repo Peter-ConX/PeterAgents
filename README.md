@@ -1,54 +1,108 @@
-# StockPicker Crew
+📊 PeterAgents — NGX Stock Picker
 
-Welcome to the StockPicker Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+An AI-powered multi-agent system that finds trending companies on the Nigerian Exchange (NGX), researches them, and picks the best investment candidate.
+Built with CrewAI
+, Serper API, and custom tools.
 
-## Installation
+🚀 Features
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+🔎 Find Trending NGX Companies in a given sector
 
-First, if you haven't already, install uv:
+📑 Research Reports on company performance, market position, and outlook
 
-```bash
-pip install uv
-```
+📈 Stock Picker Agent chooses the best company and explains why
 
-Next, navigate to your project directory and install the dependencies:
+💾 Decision Logs saved locally for reference
 
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
-```
-### Customizing
+📡 Push Notifications for instant results
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+⚙️ Installation
+1. Clone the Repo
+   git clone https://github.com/Peter-ConX/PeterAgents.git
+   cd PeterAgents
+2. Setup Virtual Environment
+   uv venv
+   source .venv/bin/activate   # macOS/Linux
+   .venv\Scripts\activate      # Windows PowerShell
+3. Install Dependencies
+   pip install -r requirements.txt
+ 🔑 Environment Variables
 
-- Modify `src/stock_picker/config/agents.yaml` to define your agents
-- Modify `src/stock_picker/config/tasks.yaml` to define your tasks
-- Modify `src/stock_picker/crew.py` to add your own logic, tools and specific args
-- Modify `src/stock_picker/main.py` to add custom inputs for your agents and tasks
+You need a Serper API key:
+ # macOS/Linux
+ export SERPER_API_KEY=your_key_here
 
-## Running the Project
+ # Windows PowerShell
+$env:SERPER_API_KEY="your_key_here"
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+▶️ Usage
 
-```bash
-$ crewai run
-```
+Run the crew with a sector of your choice (Technology, Banking, Oil & Gas, Consumer Goods, etc.):
+ python src/stock_picker/main.py
 
-This command initializes the stock_picker Crew, assembling the agents and assigning them tasks as defined in your configuration.
+Output:
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+Console: final decision
 
-## Understanding Your Crew
+output/decision.log: saved decision report
 
-The stock_picker Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
 
-## Support
+📂 Project Structure
+PeterAgents/
+│── src/stock_picker/
+│   ├── crew.py              # Crew + Agents + Tasks
+│   ├── main.py              # Entry point
+│   ├── tools/               # Custom tools (PushNotificationTool)
+│── config/
+│   ├── agents.yaml          # Agent roles, goals, backstories
+│   ├── tasks.yaml           # Task descriptions, expected outputs
+│── output/                  # Saved reports & logs
 
-For support, questions, or feedback regarding the StockPicker Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
 
-Let's create wonders together with the power and simplicity of crewAI.
+🛠 Common Errors & Fixes
+1. NameError: name 'CrewBase' is not defined
+
+CrewAI >=0.186.0 removed CrewBase.
+
+Fix: Remove @CrewBase, just use class StockPicker:.
+
+2. Failed Search the internet with Serper
+
+Usually caused by invalid API key or queries too strict.
+
+Fix:
+
+Ensure $SERPER_API_KEY is set.
+
+Loosen task prompt:
+Find trending companies in the {sector} sector on the NGX OR covered in Nigerian financial news.
+
+3. exchange placeholder not working
+
+We removed {exchange} and hardcoded NGX in agents.yaml and tasks.yaml.
+
+Fix: Remove "exchange": "NGX" from main.py inputs. Only pass "sector".
+
+4. EntityMemory or ShortTermMemory errors
+
+OpenAI embeddings (text-embedding-3-small) not wanted.
+
+Fix: In crew.py set:
+short_term_memory=None
+entity_memory=None
+
+
+5. Missing output/ folder
+
+Fix: Already handled in main.py:
+os.makedirs("output", exist_ok=True)
+
+6. Wrong companies (e.g. Apple/Tesla)
+
+Caused by Serper pulling foreign stocks.
+
+Fix:
+
+Hardcode NGX in prompts.
+
+Validate results against a local ngx_tickers.json.
