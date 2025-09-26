@@ -1,3 +1,14 @@
+#Don't forget to inlcude your serper api
+## Linux / macOS
+#export SERPER_API_KEY=your_key_here
+
+# Windows PowerShell
+#$env:SERPER_API_KEY="your_key_here"
+
+
+
+
+
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import SerperDevTool
@@ -123,4 +134,5 @@ class StockPicker():
                 )
             ),
         )
+
 
