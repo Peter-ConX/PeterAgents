@@ -106,3 +106,32 @@ Fix:
 Hardcode NGX in prompts.
 
 Validate results against a local ngx_tickers.json.
+
+{
+  "chosen_company": {
+    "name": "MTN Nigeria",
+    "rationale": "MTN Nigeria is the largest telecommunications operator in Nigeria..."
+  },
+  "not_selected_companies": [
+    { "name": "Jumia", "reason": "Volatility and competition" },
+    { "name": "Globacom", "reason": "Smaller scale vs MTN" }
+  ]
+}
+
+🌍 Roadmap
+
+ Add NGX ticker validation step
+
+ Add fallback to Nigerian news sites (BusinessDay, Nairametrics, NGXGroup)
+
+ Support for multiple exchanges (future expansion)
+
+ Better visualization of research reports
+
+🤝 Contributing
+
+Pull requests welcome. For major changes, open an issue first.
+
+📜 License
+
+MIT
